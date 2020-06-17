@@ -21,10 +21,10 @@ process.env.NODE_ENV = process.env.NODE_ENV || 'dev'
 */
 let UrlDb
 
-//if (process.env.NODE_ENV === 'dev') {
-//  UrlDb = 'mongodb://localhost:27017/cafe'
-//} else {
-UrlDb = process.env.atlasConfig // mongodb+srv://db_user_udemy:<password>@cluster0-ug9wc.mongodb.net/test
-//}
+if (process.env.NODE_ENV === 'dev') {
+  UrlDb = 'mongodb://localhost:27017/cafe'
+} else {
+  UrlDb = process.env.atlasConfig // mongodb+srv://db_user_udemy:<password>@cluster0-ug9wc.mongodb.net/test
+}
 //URLDB es inventado por mi (enviroment)
 process.env.URLDB = UrlDb
