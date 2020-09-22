@@ -6,7 +6,9 @@ const _ = require('underscore')
 // Traigo del folder models el Schema Usuario
 const Usuario = require('../models/usuario')
 
-app.get('/usuario', (req, res) => {
+const { verificaToken } = require('../middlewares/autentitacion')
+
+app.get('/usuario', verificaToken, (req, res) => {
   //Aqui busca segun lo que le ponga en find
   let desde = req.query.desde || 0
   desde = Number(desde)
