@@ -6,7 +6,7 @@ const _ = require('underscore')
 // Traigo del folder models el Schema Usuario
 const Usuario = require('../models/usuario')
 
-const { verificaToken } = require('../middlewares/autentitacion')
+const { verificaToken, verificaRole } = require('../middlewares/autentitacion')
 
 app.get('/usuario', verificaToken, (req, res) => {
   //clase 124
@@ -40,7 +40,7 @@ app.get('/usuario', verificaToken, (req, res) => {
     })
 })
 
-app.post('/usuario', verificaToken, (req, res) => {
+app.post('/usuario', [verificaToken, verificaRole], (req, res) => {
   let body = req.body
 
   //Completo los datos del nuevo objeto Usuario con los datos aportados por el body de mi peticion
@@ -68,7 +68,7 @@ app.post('/usuario', verificaToken, (req, res) => {
   })
 })
 
-app.put('/usuario/:id', verificaToken, (req, res) => {
+app.put('/usuario/:id', [verificaToken, verificaRole], (req, res) => {
   let idUser = req.params.id
   let body = _.pick(req.body, ['nombre', 'email', 'img', 'role', 'estado'])
 
@@ -95,7 +95,7 @@ app.put('/usuario/:id', verificaToken, (req, res) => {
 })
 
 //!DELETE = Cambio el valor del documento valor "estado" en  false
-app.delete('/usuario/:id', verificaToken, (req, res) => {
+app.delete('/usuario/:id', [verificaToken, verificaRole], (req, res) => {
   let idUser = req.params.id,
     cambiaEstado = {
       estado: false,
